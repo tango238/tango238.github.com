@@ -49,7 +49,7 @@ textarea {
    Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
    ========================================================================== */
 body {
-  font: 16px/26px Helvetica, Helvetica Neue, Arial; }
+  font-family: 'Skranji', cursive; }
 
 .wrapper {
   width: 90%;
@@ -78,6 +78,7 @@ body {
   color: #000; }
 
 .title {
+  font-family: 'Skranji', cursive;
   color: #f4f4f4;
   text-shadow: 5px 5px 0px #707070; }
 
