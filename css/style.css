@@ -52,6 +52,9 @@ body {
   font-family: 'Skranji', cursive; }
 
 .wrapper {
+  width: 1026px;
+  /* 1140px - 10% for margins */
+  margin: 0 auto;
   width: 90%;
   margin: 0 5%; }
 
@@ -72,15 +75,21 @@ body {
 
 .main aside {
   border-top: 20px solid #fffe0b;
-  background: #fffe0b; }
+  background: #fffe0b;
+  float: right;
+  width: 35%; }
 
 .main aside pre {
   color: #000; }
 
 .title {
   font-family: 'Skranji', cursive;
-  color: #f4f4f4;
+  color: #fdfdfd;
   text-shadow: 5px 5px 0px #707070; }
+
+.main article {
+  float: left;
+  width: 57%; }
 
 /* ==============
     MOBILE: Menu
@@ -117,7 +126,7 @@ nav a:hover {
 
 .main aside {
   color: white;
-  padding: 0px 5% 10px; }
+  padding: 0px 2% 10px; }
 
 .footer-container footer {
   color: white;
@@ -179,22 +188,7 @@ nav a:hover {
 
   /* ============
       WIDE: Main
-     ============ */
-  .main article {
-    float: left;
-    width: 57%; }
-
-  .main aside {
-    float: right;
-    width: 28%; } }
-@media only screen and (min-width: 1140px) {
-  /* ===============
-      Maximal Width
-     =============== */
-  .wrapper {
-    width: 1026px;
-    /* 1140px - 10% for margins */
-    margin: 0 auto; } }
+     ============ */ }
 /* ==========================================================================
    Helper classes
    ========================================================================== */

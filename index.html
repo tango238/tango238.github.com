@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+    <script src="js/vendor/processing-1.4.1.min.js"></script>
 </head>
 <body>
 <div class="header-container">
@@ -33,17 +36,56 @@
                 <h1>"Hello World!"</h1>
             </header>
             <section>
-                <h2>Hello World in JavaScript -</h2>
+                <h2>Processing.js</h2>
                 <p>
-                    Shows the window dialog box.
+                    Using Processing.js and generates shapes dynamically.
                 </p>
             </section>
         </article>
 
         <aside>
-            <pre>alert('Hello World!');</pre>
-            <input type="button" id="execute" value="execute" />
+            <script type="text/processing" data-processing-target="mycanvas">
+                void setup() {
+                    size(410,300, P3D);
+                    background(255, 204, 11);
+                    stroke(0,50);
+                    fill(255,200);
+                    float xstart = random(10);
+                    float ynoise = random(10);
+                    translate(width/2, height/2, 0);
+                    for(float y= -(height/8); y <= (width/8); y+=3) {
+                        ynoise += 0.02;
+                        float xnoise = xstart;
+                        for(float x=-(width/8); x<=(width/8); x+=3) {
+                            xnoise += 0.02;
+                            drawPoint(x, y, noise(xnoise, ynoise));
+                        }
+                    }
+                    println('Hello world.');
+                }
+                void drawPoint(float x, float y, float noiseFactor){
+                    pushMatrix();
+                    translate(x * noiseFactor * 4, y * noiseFactor * 4, -y);
+                    float edgeSize = noiseFactor * 26;
+                    ellipse(0, 0, edgeSize, edgeSize);
+                    popMatrix();
+                }
+
+            </script>
+            <canvas id="mycanvas"></canvas>
         </aside>
+
+
+         <article>
+             <header>
+                 <h1>Code</h1>
+             </header>
+             <section>
+                 <ul>
+                     <li>000</li>
+                 </ul>
+             </section>
+         </article>
 
     </div>
     <!-- #main -->
@@ -56,8 +98,6 @@
     </footer>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 <script>
     $(function(){
         $('#execute').click(function(){
