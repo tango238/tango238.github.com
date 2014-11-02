@@ -6,6 +6,8 @@ $sky: #2ba9f1;
 $grass: #5ce45f;
 $ground: #bf741b;
 $coin: #fffe0b;
+$white: #fdfdfd;
+$black: #3a3a3a;
 
 html,
 button,
@@ -89,6 +91,10 @@ body {
   border-top: 20px solid $grass;
 }
 
+a.footer-link {
+  color: $white;
+  text-decoration: none;
+}
 
 .header-container {
   background: $sky;
@@ -111,7 +117,7 @@ body {
 
 .title {
   font-family: 'Skranji', cursive;
-  color: #fdfdfd;
+  color: $white;
   text-shadow: 5px 5px 0px #707070;
 }
 
@@ -391,4 +397,22 @@ nav a:hover {
   h3 {
     page-break-after: avoid;
   }
+}
+
+
+/* ==========================================================================
+   あとで整理する
+   ========================================================================== */
+
+a.p5 {
+  color: $black;
+}
+
+#playground {
+  background-color: $white;;
+  width: 640px;
+  height: 500px;
+  position:absolute;
+  top: 30px;
+  left: 50px;
 }

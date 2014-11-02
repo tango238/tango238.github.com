@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
@@ -66,6 +67,10 @@ body {
 
 .footer-container {
   border-top: 20px solid #5ce45f; }
+
+a.footer-link {
+  color: #fdfdfd;
+  text-decoration: none; }
 
 .header-container {
   background: #2ba9f1; }
@@ -298,3 +303,16 @@ nav a:hover {
   h2,
   h3 {
     page-break-after: avoid; } }
+/* ==========================================================================
+   あとで整理する
+   ========================================================================== */
+a.p5 {
+  color: #3a3a3a; }
+
+#playground {
+  background-color: #fdfdfd;
+  width: 640px;
+  height: 500px;
+  position: absolute;
+  top: 30px;
+  left: 50px; }
