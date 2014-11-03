@@ -3,111 +3,53 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Code Stock</title>
+    <title>tango238's memo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link href='http://fonts.googleapis.com/css?family=Skranji' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/dqmenu.css" />
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
     <script src="js/vendor/processing-1.4.1.min.js"></script>
 </head>
 <body>
 <div class="header-container">
     <header class="wrapper clearfix">
-        <h1 class="title">Code Stock</h1>
+        <h1 class="title">tango238's memo</h1>
         <nav>
             <ul>
-                <li><a href="#">Code</a></li>
                 <li><a href="http://tango.hatenablog.com/" target="_blank">Blog</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="https://twitter.com/tan_go238" target="_blank">About</a></li>
             </ul>
         </nav>
     </header>
 </div>
 
-<div class="main-container">
-    <div class="main wrapper clearfix">
-
+<div id="main-container" class="clearfix">
+    <ul id="menu">
+        <li><a href="jvm/hotspot-runtime-overview_translated.html">HotSpot Runtime Overview (ja)</a></li>
+    </ul>
+    <div id="main">
         <article>
             <header>
                 <h1>"Hello World!"</h1>
             </header>
             <section>
-                <h2>Processing.js</h2>
-                <p>
-                    Using Processing.js and generates shapes dynamically.
-                </p>
+                <h2>Update: Nov.3, 2014</h2>
+                <p>Start translating HotSpot Runtime Overview into Japanese.</p>
             </section>
         </article>
-
-        <!--<aside>-->
-            <!--<script type="text/processing" data-processing-target="mycanvas">-->
-                <!--void setup() {-->
-                    <!--size(410,300, P3D);-->
-                    <!--background(255, 204, 11);-->
-                    <!--stroke(0,50);-->
-                    <!--fill(255,200);-->
-                    <!--float xstart = random(10);-->
-                    <!--float ynoise = random(10);-->
-                    <!--translate(width/2, height/2, 0);-->
-                    <!--for(float y= -(height/8); y <= (width/8); y+=3) {-->
-                        <!--ynoise += 0.02;-->
-                        <!--float xnoise = xstart;-->
-                        <!--for(float x=-(width/8); x<=(width/8); x+=3) {-->
-                            <!--xnoise += 0.02;-->
-                            <!--drawPoint(x, y, noise(xnoise, ynoise));-->
-                        <!--}-->
-                    <!--}-->
-                    <!--println('Hello world.');-->
-                <!--}-->
-                <!--void drawPoint(float x, float y, float noiseFactor){-->
-                    <!--pushMatrix();-->
-                    <!--translate(x * noiseFactor * 4, y * noiseFactor * 4, -y);-->
-                    <!--float edgeSize = noiseFactor * 26;-->
-                    <!--ellipse(0, 0, edgeSize, edgeSize);-->
-                    <!--popMatrix();-->
-                <!--}-->
-
-            <!--</script>-->
-            <!--<canvas id="mycanvas"></canvas>-->
-        <!--</aside>-->
-
-
-
-         <article>
-             <header>
-                 <h1>Code</h1>
-             </header>
-             <section>
-                 <ul>
-                     <li><a href="p5/001.html" class="p5">[Processing] 001</a></li>
-                 </ul>
-             </section>
-
-         </article>
-
     </div>
     <!-- #main -->
 </div>
-<div id="playground"></div>
-<!-- #main-container -->
 
-<div class="footer-container">
+<div class="footer-container clearfix">
     <footer class="wrapper">
-        <h3>&copy; 2013 <a class="footer-link" href="http://twitter.com/tan_go238" target="_blank">@tan_go238</a></h3>
+        <h3>&copy; 2014 <a class="footer-link" href="https://twitter.com/tan_go238" target="_blank">@tan_go238</a></h3>
     </footer>
 </div>
-
-<script>
-    $(function(){
-        $('#execute').click(function(){
-            alert('Hello World!!');
-        });
-    });
-</script>
 
 <script src="js/main.js"></script>
 
