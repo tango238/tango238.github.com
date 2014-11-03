@@ -67,8 +67,7 @@ body {
   background-image: url("../img/cloud2.png"), url("../img/cloud1.png");
   background-repeat: repeat-x;
   -webkit-animation: cloudMove 50s linear infinite;
-  animation: cloudMove 50s linear infinite;
-  border: solid 1px #fff; }
+  animation: cloudMove 50s linear infinite; }
 
 @keyframes cloudMove {
   0% {
