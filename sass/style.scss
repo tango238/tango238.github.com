@@ -85,6 +85,19 @@ body {
 #main-container {
   background: $sky;
   min-height: 480px;
+  background-image: url("../img/cloud2.png"), url("../img/cloud1.png");
+  background-repeat: repeat-x;
+  -webkit-animation: cloudMove 50s linear infinite;
+  animation: cloudMove 50s linear infinite;
+  border: solid 1px #fff;
+}
+@keyframes cloudMove {
+  0% {background-position: 0 0, 0 0;}
+  100% {background-position: 400px 0, 800px 0;}
+}
+@-webkit-keyframes cloudMove {
+  0% {background-position: 0 0, 0 0;}
+  100% {background-position: 400px 0, 800px 0;}
 }
 
 .header-container {
