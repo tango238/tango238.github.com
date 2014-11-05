@@ -128,6 +128,27 @@ nav a:visited {
 nav a:hover {
   text-decoration: underline; }
 
+#menu {
+  background-color: #181618;
+  border: #fdfdfd 3px solid;
+  border-radius: 5px;
+  opacity: 0.9; }
+
+#menu li {
+  list-style-type: none;
+  text-align: center; }
+
+#menu li a {
+  color: #fdfdfd;
+  text-decoration: none; }
+
+#menu li a:hover {
+  background-image: url("../img/arrow.png");
+  background-repeat: no-repeat; }
+
+#main {
+  text-align: center; }
+
 /* ==============
     MOBILE: Main
    ============== */
@@ -161,9 +182,8 @@ nav a:hover {
   nav a {
     float: left;
     width: 27%;
-    margin: 0 1.7%;
     padding: 25px 2%;
-    margin-bottom: 0; }
+    margin: 0 1.7%; }
 
   nav li:first-child a {
     margin-left: 0; }
@@ -180,18 +200,12 @@ nav a:hover {
   .oldie nav a {
     margin: 0 0.7%; } }
 @media only screen and (min-width: 768px) {
-  /* ====================
-      WIDE: CSS3 Effects
-     ==================== */
   .header-container,
   .main aside {
     -webkit-box-shadow: 0 5px 10px #aaa;
     -moz-box-shadow: 0 5px 10px #aaa;
     box-shadow: 0 5px 10px #aaa; }
 
-  /* ============
-      WIDE: Menu
-     ============ */
   .title {
     float: left; }
 
@@ -199,9 +213,22 @@ nav a:hover {
     float: right;
     width: 38%; }
 
-  /* ============
-      WIDE: Main
-     ============ */ }
+  #menu {
+    float: left;
+    width: 20%;
+    margin: 20px;
+    padding: 15px; }
+
+  #menu li {
+    text-align: inherit; }
+
+  #menu li a {
+    padding-left: 18px; }
+
+  #main {
+    float: right;
+    width: 65%;
+    text-align: inherit; } }
 /* ==========================================================================
    Helper classes
    ========================================================================== */
@@ -311,28 +338,3 @@ nav a:hover {
   h2,
   h3 {
     page-break-after: avoid; } }
-#menu {
-  float: left;
-  background-color: #181618;
-  width: 20%;
-  margin: 20px;
-  padding: 15px;
-  border: #fdfdfd 3px solid;
-  border-radius: 5px;
-  opacity: 0.9; }
-
-#menu li {
-  list-style-type: none; }
-
-#menu li a {
-  color: #fdfdfd;
-  text-decoration: none;
-  padding-left: 18px; }
-
-#menu li a:hover {
-  background-image: url("../img/arrow.png");
-  background-repeat: no-repeat; }
-
-#main {
-  float: right;
-  width: 65%; }
