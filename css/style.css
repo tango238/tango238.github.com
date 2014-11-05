@@ -142,10 +142,6 @@ nav a:hover {
   color: #fdfdfd;
   text-decoration: none; }
 
-#menu li a:hover {
-  background-image: url("../img/arrow.png");
-  background-repeat: no-repeat; }
-
 #main {
   text-align: center; }
 
@@ -224,6 +220,10 @@ nav a:hover {
 
   #menu li a {
     padding-left: 18px; }
+
+  #menu li a:hover {
+    background-image: url("../img/arrow.png");
+    background-repeat: no-repeat; }
 
   #main {
     float: right;
