@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title> Component Example </title>
+    <script src="js/knockout-3.2.0.js"></script>
+  </head>
+  <body>
+    
+    <p>Enter your name: <input data-bind='value: name'/></p>
+    <p>You entered <strong data-bind='text: name().toUpperCase()'></strong></p>
+    
+    <script>
+      var viewModel = {
+        name: ko.observable('something')
+      };
+
+      ko.applyBindings(viewModel);
+    </script>
+  </body>
+</html>

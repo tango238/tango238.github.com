@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title> Component Example </title>
+    <script src="js/knockout-3.2.0.js"></script>
+  </head>
+  <body>
+    <name-editor params="value: 'hello world'"></name-editor>
+    <div data-bind="component: { name: 'name-editor', params: { value: 'hoge bar' } }"></div>
+
+    <script>
+    	ko.components.register('name-editor', {
+    		template: "<p>Enter your name: <input data-bind='value: name'/></p><p>You entered <strong data-bind='text: name().toUpperCase()'></strong></p>",
+    		viewModel: function(params) {
+    			this.name = ko.observable(params.value);
+    		}
+    	});
+    	ko.applyBindings();
+    </script>
+  </body>
+</html>
