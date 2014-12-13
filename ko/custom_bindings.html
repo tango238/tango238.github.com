@@ -60,7 +60,7 @@ function getValue(obj, key, defaultValue) {
 }
 ko.bindingHandlers.memo = {
     init: function(element, valueAccessor, allBindingAccessor, viewModel) {
-      var memo = getValue(allBindingAccessor(), "memo");
+      var memo = allBindingAccessor.get("memo");
       var editable = getValue(memo, "editable", false);
       var content = getValue(memo, "content", "");
       var target = getValue(memo, "target","memo");
