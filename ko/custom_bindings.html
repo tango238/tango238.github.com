@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Examples</title>
+    <link href="/ko/js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/ko/js/jquery-1.11.1.min.js"></script>
+    <script src="/ko/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/ko/js/knockout-3.2.0.js"></script>
+<style type="text/css">
+<!--
+.example {
+  margin: 20px;
+}
+.memo-btn {
+  background: url("/ko/images/glyphicons-151-edit.png") no-repeat 50% 50%;
+  background-size: 22px 23px;
+  width: 22px;
+  height: 23px;
+  overflow: hidden;
+  text-indent: -9999px;
+  display: inline-block;
+}
+.memo-btn.disabled, .memo-btn.empty {
+  opacity: .4;
+}
+-->
+</style>
+</head>
+<body>
+
+<div class="example">    
+<a href="#" class="memo-btn" data-bind="memo:{ editable:true, target: 'memo1', content: memo1()}" data-placement="right" tabindex="-1" role="button">メモ</a>
+<input type="hidden" name="memo1" data-bind="value: memo1"/>
+</div>
+
+<div class="example">
+<a href="#" class="memo-btn" data-bind="memo:{ editable:true, target: 'memo2', content: memo2()}" data-placement="right" tabindex="-1" role="button">メモ</a>
+<input type="hidden" name="memo2" data-bind="value: memo2"/>
+</div>
+
+<div class="example">
+<a href="#" class="memo-btn" data-bind="memo:{ editable:false, target: 'memo3', content: memo3}" data-placement="right" tabindex="-1" role="button">メモ</a>
+<input type="hidden" name="memo3" data-bind="value: memo3"/>
+</div>
+
+<script>
+function getValue(obj, key, defaultValue) {
+  if (obj && obj.hasOwnProperty(key)) {
+    var value = obj[key];
+    if(typeof(value) === "undefined" || value == null) {
+      return "";
+    }
+    return value;
+  }
+  if (defaultValue == undefined) {
+    defaultValue = null;
+  }
+  
+  return defaultValue;
+}
+ko.bindingHandlers.memo = {
+    init: function(element, valueAccessor, allBindingAccessor, viewModel) {
+      var memo = getValue(allBindingAccessor(), "memo");
+      var editable = getValue(memo, "editable", false);
+      var content = getValue(memo, "content", "");
+      var target = getValue(memo, "target","memo");
+      var index = $('.memo-btn').index(element);
+      var textId = 'memo_text_'+index;
+      var buttonId = 'memo_btn'+index;
+      // 未入力の場合はCSSにemptyを追加します
+      var cssEmpty = function(text) {
+        ko.utils.toggleDomNodeCssClass(element, 'empty', (!text || text == ""));
+      };
+      cssEmpty(content);
+      ko.utils.registerEventHandler(element, 'click', function(e){
+        e.preventDefault();
+        return false;
+      });
+      if(editable) {
+        var getContent = function(value){
+        return '<div><input type="text" id="'+textId+'" class="f" value="' + value + '" maxlength="50"><div class="popover-btn"><button id="'+buttonId+'" class="btn btn-sm btn-primary">OK</button></div></div>';
+        };
+        ko.utils.registerEventHandler(element, 'shown.bs.popover', function(){
+          var btn = '#'+buttonId;
+          $(btn).unbind("click");
+          $(btn).click(function(e){
+            var text = $('#'+textId).val();
+            (getValue(viewModel, target))(text);
+            cssEmpty(text);
+            e.preventDefault();
+            $(element).data("bs.popover").options.content = getContent(text);
+            $(element).popover("toggle");
+            return false;
+          });
+        });
+        content = getContent(content);
+      }
+      var options = {
+        html: editable,
+        content: content,
+        container: 'body'
+      };
+      $(element).popover(options);
+    }
+};
+function ViewModel() {
+  var self = this;
+  self.memo1 = ko.observable();
+  self.memo2 = ko.observable();
+  self.memo3 = "hogehogehogehoge";
+  self.logout = ko.computed(function(){
+    console.log("memo1: " + self.memo1());
+    console.log("memo2: " + self.memo2());
+  });
+};
+ko.applyBindings(new ViewModel());
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title> Computed Example </title>
+    <script src="js/knockout-3.2.0.js"></script>
+  </head>
+  <body>
+    
+    <p>Enter your birth year: <input data-bind='value: birthYear' maxlength="4"/></p>
+    <p>You're <strong data-bind='text: age'></strong> years old.</p>
+    
+    <script>
+      function ViewModel() {
+        var self = this;
+        self.birthYear = ko.observable();
+        self.age = ko.computed(function(){
+          var now = new Date();
+          var age = now.getFullYear() - parseInt(self.birthYear());
+          if(isNaN(age)) return 0;
+          return age; 
+        });
+      }
+      ko.applyBindings(new ViewModel());
+    </script>
+  </body>
+</html>
