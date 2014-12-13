@@ -44,6 +44,7 @@
 </div>
 
 <script>
+(function(){
 function getValue(obj, key, defaultValue) {
   if (obj && obj.hasOwnProperty(key)) {
     var value = obj[key];
@@ -114,6 +115,7 @@ function ViewModel() {
   });
 };
 ko.applyBindings(new ViewModel());
+})();
 </script>
 </body>
 </html>
