@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KVZCJ2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KVZCJ2');</script>
+<!-- End Google Tag Manager -->
+
+<!--
+<script>
+  (function (w, d, c, k) {
+
+    // 共通メソッド
+    // - テスト対象
+    //   共通メソッドをtest.htmlへコピー＆ペーストしてテストを行う
+
+    /**
+     * クエリストリングを解析しオブジェクトを返す
+     *
+     * @param url
+     * returns {*}
+     */
+    function parseQuery(url) {
+      var idx = url.indexOf('?');
+      var path = idx >= 0 ? url.substr(0, idx) : url;
+      var query = idx >= 0 ? url.substr(idx+1) : null;
+      return { path: path, query: query };
+    }
+
+    /**
+     * クエリ名(key)に一致する値を取得する
+     * @param query
+     * @param key
+     * @returns string
+     */
+    function getTargetValue(query, key) {
+      if (query && query.length > 0 && key && key.length > 0) {
+        var vs = query.split('&');
+        for (var i = 0; i < vs.length; i++) {
+          var pair = vs[i].split('=');
+          if (pair[0] === key && pair[1]) return pair[1];
+        }
+      }
+      return null;
+    }
+
+    function appendQuery(query, key, value) {
+      if(key && key.length > 0) {
+        value = value || '';
+        var vs = query.split('&');
+        var found = false;
+        var q = '';
+        for (var i = 0; i < vs.length; i++) {
+          var pair = vs[i].split('=');
+          if(pair[0] !== '') {
+            var str = '';
+            if (pair[0] === key) {
+              str = key + '=' + value;
+              found = true;
+            } else {
+              str = pair[0] + '=' + pair[1]
+            }
+            q += '&' + str;
+          }
+        }
+        if(q.length > 0) {
+          q = q.substr(1);
+        }
+        // キーが見つからなければ追加
+        if(!found) {
+          q = query || '';
+          var and = q.length > 0 ? '&' : '';
+          q += and + key + '=' + value;
+        }
+        return q;
+      }
+      return query;
+    }
+
+    // 共通メソッドここまで
+
+
+    // URLに含まれるadcodeのパラメーター値を取得
+
+    var parsed = parseQuery(w.location.href);
+    var v = getTargetValue(parsed['query'], k);
+console.log(k);
+console.log(v);
+
+    // 指定されたクラスのform/aのURLにパラメーターを追加する
+
+    var els = d.getElementsByClassName(c);
+console.log(d);
+console.log(c);
+console.log(els);
+    if (v && els.length > 0) {
+
+      var tags = ['form', 'a'];
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i], tag = el.tagName.toLowerCase();
+        console.log(el);
+        for (var j = 0; j < tags.length; j++) {
+          if (tag === tags[j]) {
+            var prop = (tag === 'a') ? 'href' : 'action';
+            var target = parseQuery(el[prop]);
+            el[prop] = target['path'] + '?' + appendQuery(target['query'], k, v);
+          }
+        }
+      }
+    }
+  })(window, document, '_ad-link', 'adcode');
+</script>
+-->
+
+
+
+
+テスト内容<br>
+
+<hr>
+<form class="_ad-link" action="hoge.html"></form>
+<hr>
+<a class="_ad-link" href="hoge.html">hoge</a>
+<hr>
+<form class="_ad-link" action="hoge.html?hoge=123"></form>
+<hr>
+<a class="_ad-link" href="hoge.html?hoge=123">hoge</a>
+
+<hr>
+<form class="_ad-link" action="hoge.html?adcode=xxx"></form>
+<hr>
+<a class="_ad-link" href="hoge.html?adcode=xxx">hoge</a>
+<hr>
+<form class="_ad-link" action="hoge.html?hoge=123&adcode=xxx"></form>
+<hr>
+<a class="_ad-link" href="hoge.html?hoge=123&adcode=xxx">hoge</a>
+<a class="_ad-link" href="hoge.html?hoge=123&adcode=xxx&adcode=yyy">hoge</a>
+<hr>
+
+LPへきたときのURLにAd計測用パラメータ（adcode）が付与されている場合<br>
+
+- adcodeに値が入っている場合（?adcode=xxx）<br>
+
+  <input type="checkbox" />元のURL (action/href) の最後にパラメーターを追加する<br>
+
+- 元URLに他のクエリパラメーターが入っている場合<br>
+
+  <input type="checkbox" />パラメータを付与する（?hoge=123&adcode=xxx）<br>
+
+- 元URLに他のクエリパラメーターが入っていない場合<br>
+
+  <input type="checkbox" />パラメーターを付与する（?adcode=xxx）<br>
+
+- adcodeに値が入っていない場合（?adcode=）<br>
+
+  <input type="checkbox" />パラメーターを付与しない<br>
+
+  <input type="checkbox" />元のURL（action/href）を変更しない<br>
+
+- adcodeに = すら入っていない場合（?adcode）<br>
+
+  <input type="checkbox" />パラメーターを付与しない<br>
+
+  <input type="checkbox" />元のURL（action/href）を変更しない<br>
+
+<hr>
+- LPへきたときのURLにAd計測用パラメーター（adcode）が付与されていない場合<br>
+
+ <input type="checkbox" />パラメーターを付与しない<br>
+
+ <input type="checkbox" />元のURL (action/href) を変更しない<br>
+
+<hr>
+- Ad計測用パラメーターのパラメーター値の長さ<br>
+
+- パラメーター値に100文字以内の英数字を入れる<br>
+
+ <input type="checkbox" />パラメーターを付与する<br>
+
+- 100文字より長い英数字を入れる<br>
+
+ <input type="checkbox" />パラメーターを付与する<br>
+<hr>
+</body>
+</html>
