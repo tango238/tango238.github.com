@@ -1,9 +1,11 @@
+# Study
+
 ## Scala
 
+## Linux
 
 
-
-## Article
+## Blog
 ### IDEOの女性ビジネスデザイナーが語る、誰も教えてくれないプロダクトマネージャーの本当の役割【寄稿】
 http://thebridge.jp/2016/01/ideo-rohini-vibha-on-being-a-product-manager
 
