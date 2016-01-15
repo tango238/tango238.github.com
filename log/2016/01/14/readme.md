@@ -2,6 +2,16 @@
 
 ## Scala
 
+## PHP
+
+- `phpunit --testdox`
+
+  一覧でテストメソッド名が出てきてどのテストが落ちるか把握しやすい
+
+- `phpunit --filter 文字列 xxxxTest.php`
+
+  文字列にマッチしたテストケースだけ実行される
+
 ## Linux
 
 `umask`
