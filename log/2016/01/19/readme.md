@@ -41,3 +41,11 @@ actor = Microservices
 actor
 discovered by Carl Hewitt
 in 1973
+similar to lambda calculus
+isolated
+synchronous
+addresses are decoupled from their runtime instance
+that allows distribution, and elasticity, and mobility
+The principles of being responsive, resilient, and elastic, the ones that are defined in the Reactive Manifesto.
+
+isolation and containment of failure
