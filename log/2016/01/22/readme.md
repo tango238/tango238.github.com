@@ -34,4 +34,61 @@ I arrived at the station
 reach = 他動詞
 I reached the station
 
-# Blog
+# Geb
+
+オレオレ認証してるローカル環境をGenでスクレイピングしたい
+
+SSLの認証でエラーになる
+
+- GebConfig.groovy
+
+```
+environments {
+
+    firefox {
+        driver = {
+            ProfilesIni allProfiles = new ProfilesIni()
+            FirefoxProfile profile = allProfiles.getProfile("Geb")
+            profile.setAcceptUntrustedCertificates(true)
+            profile.setAssumeUntrustedCertificateIssuer(true)
+            profile.setPreference("security.default_personal_cert" , "SelectAutomatically")
+            new FirefoxDriver(profile)
+        }
+    }
+}
+```
+
+`allProfiles.getProfile("Geb")` で `NullPointerException` になる
+
+
+ターミナルから次のコマンドを叩く
+
+`/Applications/Firefox.app/Contents/MacOS/firefox-bin -P "Geb"`
+
+
+`groovy -Dgeb.env="firefox" scraping.groovy`
+
+
+WebDriverからFirefoxを起動する際、下記エラーが発生。
+org.openqa.selenium.firefox.NotConnectedException: Unable to connect to host 127.0.0.1 on port 7055 after 45000 ms. Firefox console output:
+
+WebDriverのバージョンがFirefoxのバージョンに対応していない場合に上記のエラーが出るとのこと。
+
+暫定回避としてFirefoxのバージョンダウン(→ ver30)を実施。
+
+下記ページから "Firefox Setup 30.0.exe" を落としてきてインストール
+
+https://ftp.mozilla.org/pub/firefox/releases/30.0
+
+
+
+Firefoxはデフォルトで自動verupするので下記のように設定を変えておく。
+
+```
+メニューから[環境設定]-[詳細]-[更新]-[Firefoxの更新]と辿って、
+    "更新の確認は行うが、インストールするかどうかを選択する"　を選択
+```
+
+もう一度実行すると正常に表示された
+
+`groovy -Dgeb.env="firefox" scraping.groovy`
