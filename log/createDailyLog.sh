@@ -1,15 +1,18 @@
 #!/bin/bash
 
+currentDir=$(cd $(dirname $0); pwd)
+echo $rootDir
+
 YEAR=`date +%Y`
 MONTH=`date +%m`
 DAY=`date +%d`
 
-mkdir -p $YEAR/$MONTH/$DAY
-FILE="$YEAR/$MONTH/$DAY/readme.md"
+mkdir -p $currentDir/$YEAR/$MONTH/$DAY
+FILE="$currentDir/$YEAR/$MONTH/$DAY/readme.md"
 if [ ! -f $FILE ]; then
   touch $FILE
-  cat template.txt >> $FILE
+  cat $currentDir/template.txt >> $FILE
 fi
-atom $YEAR/$MONTH/
+atom $currentDir/$YEAR/$MONTH/
 
 
