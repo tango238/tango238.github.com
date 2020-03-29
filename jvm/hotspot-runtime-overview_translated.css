@@ -1,0 +1,18 @@
+p {
+    padding: 0pt;
+    margin: 1ex 0em;
+    margin-bottom: 0in;
+    
+}
+
+p span {
+    font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;
+}
+
+.emphasis-code-1 {
+    font-family: 'Lucida Sans Typewriter', monospace;
+}
+
+.emphasis-code-2 {
+    font-family: 'Courier New', monospace;
+}

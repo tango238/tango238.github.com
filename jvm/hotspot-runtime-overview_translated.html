@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 5.7.0 (451010)"/><meta name="author" content="Go Tanaka"/><meta name="created" content="2014-11-01 05:54:42 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2014-11-05 14:51:22 +0000"/><title>hotspot-runtime-overview_translated</title></head><body>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 5.7.0 (451010)"/><meta name="author" content="Go Tanaka"/><meta name="created" content="2014-11-01 05:54:42 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2014-11-05 14:51:22 +0000"/><title>hotspot-runtime-overview_translated</title>
+<link rel="stylesheet" href="hotspot-runtime-overview_translated.css"
+</head>
+<body>
 <div style="padding-top: 0pt; padding-right: 0pt; padding-bottom: 0pt; padding-left: 0pt;">
 <div>The original document is the following URL.</div>
 </div>
@@ -208,16 +211,83 @@
 <div style="padding-top: 0pt; padding-right: 0pt; padding-bottom: 0pt; padding-left: 0pt; margin-top: 1.5ex; margin-right: 0pt; margin-bottom: 1ex;">
 <div>これらのハッシュテーブルは、すべて <font face="Courier New, monospace"><font size="3">SystemDictionary_lock </font></font>により保護されています。一般的に、VM内のロードクラスフェーズでは、クラスローダオブジェクトのロック(the <span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><span style="font-size: 10pt;">Class loader object lock</span></span>)を使用して直列化されています。<b><span style="font-size: 12px;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><br/></span></span></b></div>
 <div><font face="'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica" size="2"><span style="line-height: 17px;"><b><br/></b></span></font></div>
+
 <div><span style="font-size: 12px;"><b><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;">Bytecode Verifier and Format Checker</span></b></span></div>
 </div>
+
 <div>
-<p style="padding:0pt;margin:1ex 0em;margin-bottom:0in;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">Java言語は型安全な言語なので、標準的なJavaコンパイラが生成するのは有効なクラスファイルと型安全なバイトコードです。しかし、JVMにはバイトコードが信頼できるコンパイラによって生成されたか分かりません。そこで、リンク時のバイトコード検証(bytecode verification)という処理により、バイトコードの型安全性を再び担保することが必要になります。</font></span></p>
-<p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">バイトコード検証の仕様は、Java仮想マシン仕様書の4.8節で規定されています。この仕様では、バイトコードにおいてJVMが検証を行う静的制約(static constraint)と動的制約(dynamic constraint)の両方が規定されています。制約に対する違反が見つかった場合、VMはVerifyError例外を発生させ、そのバイトコードを含むクラスがリンクされないようにします。</font></span></p>
-<p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">	バイトコードに対する制約の多くは、静的に検証することが可能です。例えば、‘</font></span><font face="Lucida Sans Typewriter, monospace"><font size="3">ldc</font></font><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><span style="font-size: 10pt;">’</span><font size="3">命令のオペランドは</font></span><font face="Lucida Sans Typewriter, monospace"><font size="3"><font size="2">CONSTANT_Integer</font></font></font><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">、</font></span><font face="Lucida Sans Typewriter, monospace"><font size="3"><font size="2">CONSTANT_String</font></font></font><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">か</font></span><font face="Lucida Sans Typewriter, monospace"><font size="3"><font size="2">CONSTANT_Float</font></font></font><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">のいずれかの型を持つ有効なコンスタントプールのインデックスでなくてはならない，という制約などです。命令の引数の型と数についての制約で、バイトコードの動的解析が必要なものもあります。実行時でないと，どういうオペランドが式スタック上に存在するか決定できないためです。 </font></span></p>
-<p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">現在二つの手法が、バイトコードを解析し各命令のオペランドの型と数を決定するためにあります。従来用いられていた手法は「型推論(type inference)」と呼ばれます。これは各バイトコードを抽象実行し、分岐命令のジャンプ先や例外ハンドルにおいて型情報を単一化することで動作します。解析ではバイトコードの走査が型情報が確定するまで何度も行われます。型情報を確定できない場合や結果として得られた型がバイトコードの制約に違反している場合は、<font face="Lucida Sans Typewriter, monospace"><font size="3">VerifyError</font></font>が発生します。 この従来の検証手法は外部ライブラリ<font face="Courier New, monospace"><font size="3">libverify.so</font></font>に含まれているため、クラスや型について必要な情報を収集するために JNI を使用します。</font></span></p>
-<p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">JDK6において新しく導入された２つ目の検証手法は「型検証(type verification)」と呼ばれます。この方法では、まずJavaコンパイラが分岐命令のジャンプ先か例外処理ごとに型情報を確定し、<font face="Lucida Sans Typewriter, monospace"><font size="3">StackMapTable</font></font>という属性としてバイトコードに付与します。<font face="Lucida Sans Typewriter, monospace"><font size="3">StackMapTable</font></font>はいくつかのスタックマップフレームから構成されており、それぞれのフレームはメソッド内のある位置における式スタックおよびローカル変数の要素の型を含みます。その後JVMがバイトコードを一度だけ走査し、型の正しさを検証すればバイトコードの検証は完了です。この検証手法はJavaME CLDCですでに採用されています。この手法の処理は軽量で高速なので、VMの内部に実装されています。</font></span></p>
-<p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><font size="3">JDK6 より前に作成された場合など、バージョンが 50 未満のすべてのクラスファイルは、JVM は従来手法の型推論を用いてクラスファイルを検証します。 バージョンが50 以上のクラスファイルには<font face="Lucida Sans Typewriter, monospace"><font size="3">StackMapTable</font></font>属性が存在するため、新しい検証手法が用いられます。古い外部ツールは、バイトコードを操作したのにもかかわらず、<font face="Lucida Sans Typewriter, monospace"><font size="3">StackMapTable</font></font>属性を更新しないことがありうるので、新しい検証手法である型検証を実施している際にエラーが発生するかもしれませんが、そのとき従来の手法である型推論に切り替わります。解析処理が成功して終了すれば、クラスファイルの検証は終わりです。</font></span></p>
-<h3 style="font-size:9pt;font-weight:bold;padding:0pt;margin:1.5ex 0pt 1ex;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;">Class Data Sharing</span></h3>
+  <p>
+    <span>
+      Java言語は型安全な言語なので、標準的なJavaコンパイラが生成するのは有効なクラスファイルと型安全なバイトコードです。
+      しかし、JVMにはバイトコードが信頼できるコンパイラによって生成されたか分かりません。
+      そこで、リンク時のバイトコード検証(bytecode verification)という処理により、バイトコードの型安全性を再び担保することが必要になります。
+    </span>
+  </p>
+  <p>
+    <span>
+	バイトコード検証の仕様は、Java仮想マシン仕様書の4.8節で規定されています。
+	この仕様では、バイトコードにおいてJVMが検証を行う静的制約(static constraint)と動的制約(dynamic constraint)の両方が規定されています。
+	制約に対する違反が見つかった場合、VMはVerifyError例外を発生させ、そのバイトコードを含むクラスがリンクされないようにします。
+    </span>
+  </p>
+  <p>
+    <span>
+      バイトコードに対する制約の多くは、静的に検証することが可能です。
+      例えば、
+      ‘<span class="emphasis-code-1">ldc</span>'
+      命令のオペランドは
+      <span class="emphasis-code-1">CONSTANT_Integer</span>
+      、
+      <span class="emphasis-code-1">CONSTANT_String</span>
+      か
+      <span class="emphasis-code-1">CONSTANT_Float</span>
+      のいずれかの型を持つ有効なコンスタントプールのインデックスでなくてはならない，という制約などです。
+      命令の引数の型と数についての制約で、バイトコードの動的解析が必要なものもあります。
+      実行時でないと，どういうオペランドが式スタック上に存在するか決定できないためです。
+    </span>
+  </p>
+  <p>
+    <span>
+      現在二つの手法が、バイトコードを解析し各命令のオペランドの型と数を決定するためにあります。
+      従来用いられていた手法は「型推論(type inference)」と呼ばれます。
+      これは各バイトコードを抽象実行し、分岐命令のジャンプ先や例外ハンドルにおいて型情報を単一化することで動作します。
+      解析ではバイトコードの走査が型情報が確定するまで何度も行われます。
+      型情報を確定できない場合や結果として得られた型がバイトコードの制約に違反している場合は、
+      <span class="emphasis-code-1">VerifyError</span>
+      が発生します。
+      この従来の検証手法は外部ライブラリ
+      <span class="emphasis-code-2">libverify.so</span>
+      に含まれているため、クラスや型について必要な情報を収集するために JNI を使用します。
+    </span>
+  </p>
+  <p>
+    <span>
+      JDK6において新しく導入された２つ目の検証手法は「型検証(type verification)」と呼ばれます。
+      この方法では、まずJavaコンパイラが分岐命令のジャンプ先か例外処理ごとに型情報を確定し、
+      <span class="emphasis-code-1">StackMapTable</span>
+      という属性としてバイトコードに付与します。
+      <span class="emphasis-code-1">StackMapTable</span>
+      はいくつかのスタックマップフレームから構成されており、それぞれのフレームはメソッド内のある位置における式スタックおよびローカル変数の要素の型を含みます。
+      その後JVMがバイトコードを一度だけ走査し、型の正しさを検証すればバイトコードの検証は完了です。
+      この検証手法はJavaME CLDCですでに採用されています。
+      この手法の処理は軽量で高速なので、VMの内部に実装されています。
+    </span>
+  </p>
+  <p>
+    <span>
+      JDK6 より前に作成された場合など、バージョンが 50 未満のすべてのクラスファイルは、JVM は従来の手法である型推論を用いてクラスファイルを検証します。
+      バージョンが50以上のクラスファイルには
+      <span class="emphasis-code-1">StackMapTable</span>
+      属性が存在するため、新しい検証手法である型検証が用いられます。
+      古い外部ツールは、バイトコードを操作したのにもかかわらず、
+      <span class="emphasis-code-1">StackMapTable</span>
+      属性を更新しないことがありうるので、新しい手法である型検証を実施している際にエラーが発生するかもしれません。
+      そのときは従来の手法である型推論に切り替わります。
+      解析処理が成功して終了すれば、クラスファイルの検証は終わりです。
+    </span>
+  </p>
+
+  <h3 style="font-size:9pt;font-weight:bold;padding:0pt;margin:1.5ex 0pt 1ex;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;">Class Data Sharing</span></h3>
 <p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><span style="font-size: 10pt;">Class data sharing (CDS) is a feature introduced in J2SE 5.0 that is intended to reduce the startup time for Java programming language applications, in particular smaller applications, as well as reduce footprint. When the JRE is installed on 32-bit platforms using the Sun provided installer, the installer loads a set of classes from the system jar file into a private internal representation, and dumps that representation to a file, called a “shared archive”. If the Sun JRE installer is not being used, this can be done manually, as explained below. During subsequent JVM invocations, the shared archive is memory-mapped in, saving the cost of loading those classes and allowing much of the JVM's metadata for these classes to be shared among multiple JVM processes.</span></span></p>
 <p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><span style="font-size: 10pt;">Class data sharing is supported only with the Java HotSpot Client VM, and only with the serial garbage collector.</span></span></p>
 <p style="padding:0pt;margin:1ex 0em;"><span style="font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Luxi Sans', Verdana, Arial, Helvetica;"><span style="font-size: 10pt;">The primary motivation for including CDS is the decrease in startup time it provides. CDS produces better results for smaller applications because it eliminates a fixed cost: that of loading certain core classes. The smaller the application relative to the number of core classes it uses, the larger the saved fraction of startup time.</span></span></p>
