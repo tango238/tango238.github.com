@@ -217,6 +217,10 @@
 
 <div>
   <p>
+    <!-- The Java language is a type-safe language, and standard Java compilers produce valid classfiles and type-safe code,
+	 but the JVM can't guarantee that the code was produced by a trustworthy compiler,
+	 so it must reestablish that type-safety through a process at link-time called bytecode verification.
+       -->
     <span>
       Java言語は型安全な言語なので、標準的なJavaコンパイラが生成するのは有効なクラスファイルと型安全なバイトコードです。
       しかし、JVMにはバイトコードが信頼できるコンパイラによって生成されたか分かりません。
@@ -224,6 +228,10 @@
     </span>
   </p>
   <p>
+    <!-- Bytecode verification is specified in section 4.8 of the Java Virtual Machine Specification.
+	 The specification prescribes both static and dynamic constraints on the code which the JVM verifies.
+	 If any violations are found, the VM will throw a VerifyError and prevent the class from being linked.
+       -->
     <span>
 	バイトコード検証の仕様は、Java仮想マシン仕様書の4.8節で規定されています。
 	この仕様では、バイトコードにおいてJVMが検証を行う静的制約(static constraint)と動的制約(dynamic constraint)の両方が規定されています。
@@ -231,6 +239,10 @@
     </span>
   </p>
   <p>
+    <!-- Many of the constraints on the bytecodes can be checked statically,
+	 such as the operand of an ‘ldc’code must be a valid constant pool index whose type is CONSTANT_Integer, CONSTANT_Stringor CONSTANT_Float.
+	 Other constraints which check the type and number of arguments for other instructions requires dynamic analysis of the code to determine which operands will be present on the expression stack during execution.
+       -->
     <span>
       バイトコードに対する制約の多くは、静的に検証することが可能です。
       例えば、
@@ -247,6 +259,15 @@
     </span>
   </p>
   <p>
+    <!-- There are currently two methods of analyzing the bytecodes to determine the types and number of operands that will be present for each instruction.
+	 The traditional method is called “type inference”,
+	 and operates by performing an abstract interpretation of each bytecode and merging type states at branch targets or exception handles.
+	 The analysis iterates over the bytecode until a steady state for the types are found.
+	 If a steady state cannot be found, or if the resulting types violate some bytecode constraint,
+	 then a VerifyError is thrown.
+	 The code for this verification step is present in the libverify.so external library,
+	 and uses JNI to gather whatever information is needed about classes and types.
+       -->
     <span>
       現在二つの手法が、バイトコードを解析し各命令のオペランドの型と数を決定するためにあります。
       従来用いられていた手法は「型推論(type inference)」と呼ばれます。
@@ -261,6 +282,14 @@
     </span>
   </p>
   <p>
+    <!-- New in JDK6 is the second method for verification which is called “type verification”.
+	 In this method the Java compiler provides the steady-state type information for each branch or exception target, via the code attribute, StackMapTable.
+	 The StackMapTable consists of a number of stack map frames,
+	 each which indicates the types of the items on the expression stack and in the local variables at some offset in the method.
+	 The JVM needs to then only perform one pass through the bytecode to verify the correctness of the types to verify the bytecode.
+	 This is the method already used by JavaME CLDC.
+	 Since it it smaller and faster, this method of verification is built directly in the VM itself.
+       -->
     <span>
       JDK6において新しく導入された２つ目の検証手法は「型検証(type verification)」と呼ばれます。
       この方法では、まずJavaコンパイラが分岐命令のジャンプ先か例外処理ごとに型情報を確定し、
@@ -274,6 +303,14 @@
     </span>
   </p>
   <p>
+    <!-- For all classfiles with a version number less than 50, such as those created prior to JDK6,
+	 the JVM will use the traditional type inference method to verify the classfiles.
+	 For classfiles greater than or equal to 50,
+	 the StackMapTable attributes will be present and the new verifier will be used.
+	 Because of the possibility of older external tools that might instrument the bytecode but neglect to update the StackMapTable attribute,
+	 certain verification errors that occur during type-checking verification may failover to the type-inference method.
+	 Should that pass succeed, the class file will be verified.
+       -->
     <span>
       JDK6 より前に作成された場合など、バージョンが 50 未満のすべてのクラスファイルは、JVM は従来の手法である型推論を用いてクラスファイルを検証します。
       バージョンが50以上のクラスファイルには
